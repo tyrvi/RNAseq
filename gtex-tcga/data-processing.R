@@ -15,7 +15,7 @@ gtexcolumns <- colnames(gtex)
 # pick a random sample from samples of bladder, prostate and thyroid
 random.gtex.bladder <- gtexcolumns[sample(grep("bladder", gtexcolumns), size=1)]
 random.gtex.prostate <- gtexcolumns[sample(grep("prostate", gtexcolumns), size=1)]
-random.gtex.thyroid <- gtexcolumns[sample(grep("bladder", gtexcolumns), size=1)]
+random.gtex.thyroid <- gtexcolumns[sample(grep("thyroid", gtexcolumns), size=1)]
 
 gtex.genes <- gtex[,"Description"]
 gtex.fpkms <- data.frame(GENE=gtex.genes, GTEx_bladder=gtex[,c(random.gtex.bladder)], GTEx_prostate=gtex[,c(random.gtex.prostate)], GTEx_thyroid=gtex[,c(random.gtex.thyroid)])
