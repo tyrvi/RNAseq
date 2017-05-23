@@ -70,10 +70,10 @@ plot.pca.published <- function(df,x,y,z,l){
 }
 
 # figure 1b
-pheatmap(cor(f.nozero), method="spearman", main="fig. 1a")
+pheatmap(cor(f.nozero), method="spearman", main="fig. 1b")
 
 # figure 1c
-plot.pca.published(f.nozero, 1, 2, "fig. 1b", length(f.nozero[,1]))
+plot.pca.published(f.nozero, 1, 2, "fig. 1c", length(f.nozero[,1]))
 legend("bottomleft",legend=c("Bladder","Prostate","Thyroid"),col=c("indianred", "dodgerblue", "forestgreen"),cex=1.5,pch=20, bty="n")
 legend("top",legend=c("GTEx","TCGA"),col="black",pch=c(15,16,17,8),ncol=2, bty="n")
 
