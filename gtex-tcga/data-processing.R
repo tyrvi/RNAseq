@@ -12,10 +12,11 @@ library(data.table) # for collapsing transcript RPKMs
 # Processes and write the GTEx data set to gtexfpkms.txt file
 gtex <- read.delim("GTEx-3-Tissues-N.txt", sep="\t")
 gtexcolumns <- colnames(gtex)
-# pick a random sample from samples of bladder, prostate and thyroid
-random.gtex.bladder <- gtexcolumns[sample(grep("bladder", gtexcolumns), size=1)]
-random.gtex.prostate <- gtexcolumns[sample(grep("prostate", gtexcolumns), size=1)]
-random.gtex.thyroid <- gtexcolumns[sample(grep("thyroid", gtexcolumns), size=1)]
+
+# random selection of sample is commented out in order to replicate graphs
+random.gtex.bladder <- "GTEX.SNOS.0526.SM.4DM54.bladder." #gtexcolumns[sample(grep("bladder", gtexcolumns), size=1)]
+random.gtex.prostate <- "GTEX.V1D1.1926.SM.4JBGX.prostate." #gtexcolumns[sample(grep("prostate", gtexcolumns), size=1)]
+random.gtex.thyroid <- "GTEX.SIU7.1126.SM.2XCDW.thyroid." #gtexcolumns[sample(grep("thyroid", gtexcolumns), size=1)]
 
 gtex.genes <- gtex[,"Description"]
 gtex.fpkms <- data.frame(GENE=gtex.genes, GTEx_bladder=gtex[,c(random.gtex.bladder)], GTEx_prostate=gtex[,c(random.gtex.prostate)], GTEx_thyroid=gtex[,c(random.gtex.thyroid)])
@@ -26,9 +27,10 @@ gtex.fpkms <- data.frame(GENE=gtex.genes, GTEx_bladder=gtex[,c(random.gtex.bladd
 tcga <- read.delim("TCGA-3-Tissues-N.txt", sep="\t")
 tcgacolumns <- colnames(tcga)
 
-random.tcga.bladder <- tcgacolumns[sample(grep("bladder", tcgacolumns), size=1)]
-random.tcga.prostate <- tcgacolumns[sample(grep("prostate", tcgacolumns), size=1)]
-random.tcga.thyroid <- tcgacolumns[sample(grep("thyroid", tcgacolumns), size=1)]
+# random selection of sample is commented out in order to replicate graphs
+random.tcga.bladder <- "TCGA.K4.A54R.11A.11R.A26T.07.bladder." #tcgacolumns[sample(grep("bladder", tcgacolumns), size=1)]
+random.tcga.prostate <- "TCGA.EJ.7794.11A.01R.2118.07.prostate." #tcgacolumns[sample(grep("prostate", tcgacolumns), size=1)]
+random.tcga.thyroid <- "TCGA.KS.A41I.11A.11R.A23N.07.thyroid." #tcgacolumns[sample(grep("thyroid", tcgacolumns), size=1)]
 
 tcga.genes <- tcga[,"Gene"]
 tcga.genes.nobar <- gsub("\\|.*", "", tcga.genes)
@@ -48,7 +50,6 @@ rownames(f) <- gene
 #write.table(f, file="combined-gtex-tcga-bygene.txt", quote=FALSE, sep="\t")
 
 # remove samples where the FPKM is less than or equal to 0.01 in all samples
-#fpkms.nozero <- fpkms[-which(rowMeans(fpkms[,0:-1])<=0.01),]
 f.nozero <- f[-which(rowMeans(f[,])<=0.01),]
 
 plot.pca.published <- function(df,x,y,z,l){
@@ -60,10 +61,9 @@ plot.pca.published <- function(df,x,y,z,l){
   v.y <- v[y]
   
   colors <- c("indianred", "dodgerblue", "forestgreen",
-              "indianred", "dodgerblue", "forestgreen",
               "indianred", "dodgerblue", "forestgreen")
   
-  shapes <- c(rep(15,3),rep(16,2))
+  shapes <- c(rep(15,3),rep(16,3))
   
   plot(p$x[,x],p$x[,y],pch=shapes,cex=1.5,col=colors,xlab=paste(paste("PC",x),round(v.x),"% of variance"),ylab=paste(paste("PC",y),round(v.y),"% of variance"),main=paste(z," FPKM \n n=",l))
   
