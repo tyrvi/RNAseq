@@ -9,12 +9,12 @@ library(ggplot2)
 library(org.Hs.eg.db) # for transferring gene identifiers
 library(data.table) # for collapsing transcript RPKMs
 
-gtex <- read.delim("all-samples-results/GTEx-3-Tissues-N.txt", sep="\t")
+gtex <- read.delim("GTEx-3-Tissues-N.txt", sep="\t")
 gtexcolumns <- colnames(gtex)
 gtex.fpkms <- gtex[,gtexcolumns[2:length(gtexcolumns)]]
 colnames(gtex.fpkms)[1] <- "Gene"
 
-tcga <- read.delim("all-samples-results/TCGA-3-Tissues-N.txt", sep="\t")
+tcga <- read.delim("TCGA-3-Tissues-N.txt", sep="\t")
 tcgacolumns <- colnames(tcga)
 tcga.genes <- tcga[,"Gene"]
 tcga[,"Gene"] <- gsub("\\|.*", "", tcga.genes)
@@ -28,7 +28,7 @@ f <- temp[,2:ncol(temp)]
 rownames(f) <- gene
 
 
-data <- read.delim("all-samples-results/combined-DataMatrix-QuantNormed.txt", sep = "\t")
+data <- read.delim("combined-DataMatrix-QuantNormed.txt", sep = "\t")
 datacol <- colnames(data)
 # remove breast samples
 data[,datacol[grep(".*breast", colnames(data))]] <- list(NULL)
